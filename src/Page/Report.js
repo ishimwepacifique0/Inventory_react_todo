@@ -3,7 +3,7 @@ import '../App.css'
 import Example from './Modal/iItemModal';
 import NewItem from './Modal/iItemModal';
 
-function Report(props) {
+function Report() {
     return (
         <div>
              <div>
