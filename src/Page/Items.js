@@ -18,10 +18,9 @@ function Items() {
                         <p>all Items</p>
                     </div>
                     <div className=''>
-                        {/* <NavLink to="/newitem" >
+                        <NavLink to="/newitem" >
                         <button className='btn btn-primary shadow' onClick={ <Example/> }>New Item</button>
-                        </NavLink> */}
-                        <Example />
+                        </NavLink>
                     </div>
                 </div>
                 <table className='table shadow'>

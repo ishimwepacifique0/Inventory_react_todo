@@ -7,6 +7,9 @@ import Items from './Page/Items';
 import Invoice from './Page/Invoice';
 import { FaUserAlt } from 'react-icons/fa';
 import Sidebar from './components/SideBar';
+import Example from './Page/Modal/iItemModal';
+import NewInvoice from './Page/Modal/NewInvoice';
+import Login from './Page/Modal/login';
 
 function App() {
   return (
@@ -19,8 +22,10 @@ function App() {
           <Route path='/reports' element={<Report/>}/>
           <Route path='/items' element={<Items/>}/>
           <Route path='/settings' element={<Settings/>}/>
+          <Route path='/newitem' element={<Example />}/>
+          <Route path='/newinvoice' element={<NewInvoice />}/>
+          <Route path='/login' element={<Login />} />
         </Routes>
-
       </Sidebar>
     </BrowserRouter>
   );

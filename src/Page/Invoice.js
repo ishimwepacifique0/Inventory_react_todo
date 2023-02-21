@@ -5,6 +5,7 @@ import {
     FaCheckSquare,
     FaCheck
 } from 'react-icons/fa'
+import { NavLink } from 'react-router-dom';
 import '../App.css'
 import Example from './Modal/NewInvoice';
 import Print from './Modal/PrintInvoice';
@@ -19,7 +20,9 @@ function Invoice() {
                         <p>all invoice</p>
                     </div>
                     <div className=''>
-                        <Example />
+                        <NavLink to='/newinvoice' >
+                            <button className="btn btn-primary">Add Invoice</button>
+                        </NavLink>
                         <Print />
                     </div>
                 </div>
