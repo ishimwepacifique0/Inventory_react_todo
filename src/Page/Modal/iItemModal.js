@@ -4,11 +4,17 @@ const Example = () => {
   return (
     <div className='container'>
         <div className='d-flex justify-content-between'>
-          <div>
-              <b>Items</b>
-              <p>New Item</p>
-          </div>
-      </div>
+                    <div>
+                        <b>Item</b>
+                        <p>all Item</p>
+                    </div>
+                    <div className=''>
+                        <NavLink to='/items' >
+                            <button className="btn btn-primary">View Item</button>
+                        </NavLink>
+                        <Print />
+                    </div>
+                </div>
         <form className="form-horizontal jusify-content-center my-1 py-5 mx-3 bg-white px-5 shadow" method="post" action="" >
 
             <div className="form-group">

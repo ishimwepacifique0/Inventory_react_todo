@@ -11,7 +11,19 @@ const NewInvoice = () => {
   return (
     <div className='container'>
        <div className='d-flex justify-content-between'>
+                    <div>
+                        <b>Invoice</b>
+                        <p>all invoice</p>
+                    </div>
+                    <div className=''>
+                        <NavLink to='/invoice' >
+                            <button className="btn btn-primary">View Invoice</button>
+                        </NavLink>
+                        <Print />
+                    </div>
+                </div><div className='d-flex justify-content-between'>
           <div>
+             <p>Invoice</p>
               <p>New invoice</p>
           </div>
       </div>
