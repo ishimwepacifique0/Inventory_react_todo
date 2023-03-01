@@ -1,10 +1,22 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import {
     FaEdit,
     FaTrashAlt
 } from 'react-icons/fa'
+import axios from 'axios';
 
 function Customer(props) {
+    const [getCustomer,setGetCustomer] = useState([])
+
+  useEffect(() => {
+    fetchData()
+  }, [])
+
+    const fetchData = async () =>{
+        const response = await axios.get('https://inventory-bay.onrender.com/api/invoice/get')
+        console.log(response.data.invoices)
+        setGetCustomer(response.data.invoices)
+    }
     return (
         <div>
             <div className='container'>
@@ -17,24 +29,25 @@ function Customer(props) {
                 <table className='table shadow'>
                     <thead className="bg-primary text-white">
                         <tr>
-                            <th>#</th>
+
                             <th>CustomerTin</th>
                             <th>CustomerName</th>
                             <th>CustomerPhone</th>
-                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
+                        {getCustomer.map((itemdata,key)=>{
+                            return(
+
                         <tr>
-                            <td>1</td>
-                            <td>5703798529</td>
-                            <td>ISHIMWE Pacifique</td>
-                            <td>0787334843</td>
-                            <td>
-                                <button className='btn btn-primary btn-sm'><FaEdit/></button>
-                                <button className='btn btn-danger btn-sm'> <FaTrashAlt /> </button>
-                            </td>
+                                    <td className='p-2'>{itemdata.customer.name}</td>
+                                    <td className='p-2'>{itemdata.customer.customerTin}</td>
+                                    <td className='p-2'>{itemdata.customer.phone}</td>
                         </tr>
+                            )
+
+                        }) 
+                            }
                     </tbody>
                 </table>
             </div>

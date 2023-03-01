@@ -3,14 +3,34 @@ import {
     FaTrashAlt,
     FaEdit,
     FaCheckSquare,
-    FaCheck
 } from 'react-icons/fa'
 import { NavLink } from 'react-router-dom';
 import '../App.css'
+import Editinvoice from './Modal/editpage/invoinceEdit';
 import Example from './Modal/NewInvoice';
 import Print from './Modal/PrintInvoice';
+import { useState,useEffect } from 'react';
+import axios from 'axios';
 
 function Invoice() {
+    const [getData,setGetData] = useState([])
+    
+    useEffect(()=>{
+        getInvoice()
+    },[])
+
+    const getInvoice = async () =>{
+        try{ 
+            const response = await axios.get('https://inventory-bay.onrender.com/api/invoice/get')
+            console.log(response.data.invoices)
+            setGetData(response.data.invoices)
+
+    }catch(err){
+        console.log(err)
+    }
+
+
+    }
     return (
         <div>
             <div className='container'>
@@ -23,46 +43,48 @@ function Invoice() {
                         <NavLink to='/newinvoice' >
                             <button className="btn btn-primary">Add Invoice</button>
                         </NavLink>
-                        <Print />
                     </div>
                 </div>
                 <table className='table'>
                     <thead className="bg-primary text-white">
-                        <tr>
-                            <th>CustomerTin</th>
+                        <tr>                
                             <th>CustomerName</th>
+                            <th>CustomerTin</th>
                             <th>CustomerPhone</th>
                             <th>ItemName</th>
                             <th>Quantity</th>
                             <th>Sales Price</th>
                             <th>Total amount</th>
                             <th>Decision</th>
-                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                         <tr>
-                            <td>5703798529</td>
-                            <td>ISHIMWE Pacifique</td>
-                            <td>0787334843</td>
-                            <td>Robinet</td>
-                            <td>30</td>
-                            <td>1400</td>
-                            <td>42000</td>
-                            <td className=''>
-                                <button className='btn btn-secondary btn-sm'><FaCheckSquare/> </button>
-                                <button className='btn btn-warning btn-sm'> Unpaid </button>
-                            </td>
-                            <td className='d-flex'>
-                                <button className='btn btn-primary btn-sm'><FaEdit/></button>
-                                <button className='btn btn-danger btn-sm'> <FaTrashAlt /> </button>
-                            </td>
-                         </tr>
+                        {
+                            getData.map((itemdata,key)=>{
+                                return(
+                                    <>
+                                    <tr>
+                                    <td>{itemdata.customer.name}</td>
+                                    <td>{itemdata.customer.customerTin}</td>
+                                    <td>{itemdata.customer.phone}</td>
+                                    <td>{itemdata.items.map(item=>item.item?.name)}</td>
+                                    <td>{itemdata.items.map(item=>item.quantity)}</td>
+                                    <td>{itemdata.items.map(item=>item.salesPrice)}</td>
+                                    <td>{itemdata.total}</td>
+                                    <td className=''>
+                                    <button className='btn btn-secondary btn-sm'><FaCheckSquare/> </button>
+                                    <button className='btn btn-warning btn-sm'> Unpaid </button>
+                                    <Print id={itemdata._id} />
+                                         </td>
+                                    </tr>
+                                    </>
+                                )
+                            })
+                        }
                     </tbody>
                 </table>
             </div>
         </div>
     );
 }
-
 export default Invoice;
