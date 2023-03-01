@@ -14,6 +14,8 @@ const NewInvoice = () => {
   const [quantity,setQuantity] = useState('')
   const [unitPrice,setUnitPrice] = useState('')
   const [itenData,setItemData] = useState([])
+  const [msg,setMsg] = useState('')
+  const [msgsuccess,setMsgsuccess] = useState('')
 
   useEffect(() => {
    getItem()
@@ -46,27 +48,53 @@ const NewInvoice = () => {
     try{
       const response = await axios.post('https://inventory-bay.onrender.com/api/invoice/create',data)
       console.log(response.data)
+      if(response.status == 200){
+        setMsgsuccess("Invoice Saved successfully")
+        setMsg('')
+        setItemname('')
+        setCustomerName('')
+        setCustomerTin('')
+        setCustometPhone('')
+        setQuantity('')
+        setUnitPrice('')
+       }
     }catch(err){
-      console.log(err)
+      console.log(err.response.data.error)
+      setMsg(err.response.data.error)
     }
   }
   
 
   return (
     <div className='container'>
-       <div className='d-flex justify-content-between'>
+       <div className='d-flex justify-content-between alert alert-primary'>
                     <div>
                         <b>Invoice</b>
-                        <p>all invoice</p>
                     </div>
                     <div className=''>
                         <NavLink to='/invoice' >
-                            <button className="btn btn-primary">View Invoice</button>
+                            <p>View Invoice</p>
                         </NavLink>
                     </div>
                   </div>
-          <form className="form-horizontal jusify-content-center bg-white mx-2 px-5 py-1 shadow" method="post" onSubmit={SaveInvoice}>
+          <form className="form-horizontal jusify-content-center bg-white mx-2 px-5 py-4 shadow" method="post" onSubmit={SaveInvoice}>
         
+          <div className='alert alert-primary'>
+              <h6 className='text-center'>Add new Invoice in Stock</h6>
+          </div>
+          {!msg == ''?(
+            <div className='alert  alert-danger text-center'>
+                {msg}
+            </div>
+           ):null}
+           {!msgsuccess == ''?(
+            <div className='alert  alert-success text-center'>
+                {msgsuccess}
+            </div>
+           ):null}
+           <div className='container'>
+            <div className='row'>
+              <div className='col'>
               <div className="form-group">
               <label className="col-sm-2 control-label my-1">CustomerName</label>
               <div className="col-sm-10">
@@ -105,7 +133,8 @@ const NewInvoice = () => {
                />
               </div>
               </div>
-
+                </div>
+                <div className='col'>
               <div className="form-group">
               <label  className="col-sm-2 control-label my-1">ItemName</label>
               <div className="col-sm-10">
@@ -149,13 +178,14 @@ const NewInvoice = () => {
                       />
                       </div>
                       </div>
-
+                      </div>
                     <div className='form-group my-1'>
                       <button className='btn btn-success'>
                         Save
                       </button>
                       </div>
-
+                    </div>
+                    </div>
               
               </form>
     </div>

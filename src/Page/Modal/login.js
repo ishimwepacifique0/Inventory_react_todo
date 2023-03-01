@@ -1,5 +1,5 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { LoginCredetial } from '../../feather/authentication'
 
@@ -9,7 +9,7 @@ import { LoginCredetial } from '../../feather/authentication'
 const Login = () =>{
     
     const dispatch = useDispatch()
-
+    const dataerr = useSelector( state => state.authstoredata.error)
     const [username,setUsername] = React.useState([])
     const [password,setPassword] = React.useState([])
 
@@ -22,6 +22,7 @@ const Login = () =>{
         }
         dispatch(LoginCredetial(data))
         console.log(data)
+        console.log(dataerr)
     }
     return(
        <div className='container'>
@@ -29,6 +30,8 @@ const Login = () =>{
             onSubmit={AuthLogin}
             >
                 <h2 className='justify-content-center'>Login</h2>
+
+                {dataerr}
                 <div className='form-group'>
                     <label className='col-sm-2 control-label my-1' >Username</label>
                     <div className='col-sm-10'>

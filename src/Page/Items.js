@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { Navigate, NavLink,Link } from 'react-router-dom';
 import '../App.css'
 import NewItemModal from './Modal/NewInvoice';
 import {
@@ -9,13 +9,25 @@ import {
 import { useState,useEffect } from 'react';
 import axios from 'axios';
 import Print from './Modal/editpage/itemEdit';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 function Items() {
     const [getdata,setGetdata] = useState([])
+    const navigate = useNavigate()
+    const user = localStorage.getItem("storeTokendata")
+    const [msgsuccess,setMsgsuccess] = useState('')
+    const IsLoggedin = useSelector((state)=>state.authstoredata.IsLoggedin)
+    console.log(IsLoggedin)
+
 
      useEffect(()=>{
         console.log(getdata)
+        if(!user == ''){
          getItems()
+        }else{
+            navigate("/login")
+        }
          },[])
          const getItems = async () => {
     
@@ -33,6 +45,10 @@ function Items() {
                 console.log(id)
                 const response = await axios.delete(`https://inventory-bay.onrender.com/api/item/delete/${id}`)
                 console.log(response.data)
+                if(response.status == 200){
+                    setMsgsuccess(response.data.message)
+                    window.location.reload(true)
+                }
             }catch(erro){
                 console.log(erro)
             }
@@ -40,9 +56,9 @@ function Items() {
     return (
         <div>
             <div className='container'>
-                <div className='d-flex justify-content-between'>
+                <div className='d-flex justify-content-between alert alert-primary'>
                     <div>
-                        <b>Items</b>
+                        <b>ITEMS</b>
                         <p>all Items</p>
                     </div>
                     <div className=''>
@@ -51,6 +67,11 @@ function Items() {
                         </NavLink>
                     </div>
                 </div>
+                {!msgsuccess == ''?(
+            <div className='alert  alert-success text-center'>
+                {msgsuccess}
+            </div>
+           ):null}
                 <table className='table shadow'>
                     <thead className="bg-primary text-white">
                         <tr>
@@ -68,7 +89,9 @@ function Items() {
                                     <td>{item?.unitPrice}</td>
                                     <td>{item?.currentStock}</td>
                                 <td>
-                                 <button className='btn btn-primary btn-sm'><Print/></button>
+                                    <Link to={`/print/${item?._id}`} state={item._id}>
+                                 <button className='btn btn-primary btn-sm'><FaEdit/></button>
+                                    </Link>
                                 <button className='btn btn-danger btn-sm' onClick={()=>deletedata(item?._id)}> <FaTrashAlt /> </button>
                             </td>
                          </tr>

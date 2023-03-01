@@ -5,12 +5,19 @@ import { NavLink } from "react-router-dom";
 import logo from './logo.jpg'
 import { useDispatch } from "react-redux";
 import { LogoutCredentail } from "../feather/authentication";
+import { useNavigate } from "react-router-dom";
 
 
 const Sidebar = ({children}) =>{
+    const user = localStorage.getItem("storeTokendata")
     const dispatch = useDispatch()
+    const navigate = useNavigate()
+
     const logout = () =>{
         dispatch(LogoutCredentail())
+        window.location.reload(true)
+        console.log('you are logout')
+        navigate("/login")
     }
     return(
         <div className="cont">
@@ -35,7 +42,15 @@ const Sidebar = ({children}) =>{
                         )
                     })
                 }
-                <p className="text-danger text-center" onClick={logout}>logout</p>
+                {
+                    !user == ''?(
+                        <button className="btn btn-danger text-center mx-1" onClick={logout}>logout</button>
+
+                    ):(
+                        <button className="btn btn-danger text-center mx-1 d-none" onClick={logout}>logout</button>
+
+                    )
+                }
               </div>
         </div>
         <div>

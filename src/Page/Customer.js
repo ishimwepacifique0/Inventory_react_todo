@@ -20,10 +20,10 @@ function Customer(props) {
     return (
         <div>
             <div className='container'>
-                <div className='d-flex justify-content-between'>
+                <div className='d-flex justify-content-between alert alert-primary'>
                     <div>
                         <b>Customer</b>
-                        <p>all customers</p>
+                        <p>All customers are recorded in database</p>
                     </div>
                 </div>
                 <table className='table shadow'>
@@ -40,9 +40,9 @@ function Customer(props) {
                             return(
 
                         <tr>
-                                    <td className='p-2'>{itemdata.customer.name}</td>
-                                    <td className='p-2'>{itemdata.customer.customerTin}</td>
-                                    <td className='p-2'>{itemdata.customer.phone}</td>
+                                    <td className='px-2'>{itemdata.customer.name}</td>
+                                    <td className='px-2'>{itemdata.customer.customerTin}</td>
+                                    <td className='px-2'>{itemdata.customer.phone}</td>
                         </tr>
                             )
 

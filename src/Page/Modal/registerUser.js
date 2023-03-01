@@ -16,8 +16,11 @@ const SignUp = () =>{
     const [city,setCity] = useState('')
     const [companyName,setCompanyName] = useState('')
     const [companyTin,setCompanyTin] = useState('')
+    const [erro,setError] = useState('')
+    const [msg,setMsg] = useState('')
 
-    const getregister = () =>{
+    const getregister = async (e) =>{
+        e.preventDefault()
         const data = 
             {
                 "name": name,
@@ -30,13 +33,48 @@ const SignUp = () =>{
                 "companyTin": companyTin
               }
               console.log(data)
-            dispatch(SignupCredentail(data))
+            // dispatch(SignupCredentail(data))
+
+            try{
+                const response = await axios.post('https://inventory-bay.onrender.com/api/auth/register',data)
+                if(response.status == 200){
+                    setMsg('registration successfully')
+                    setError('')
+                    setAddress('')
+                    setCompanyName('')
+                    setEmail('')
+                    setPassword('')
+                    setCompanyTin('')
+                    setPhone('')
+                    setCity('')
+                }
+                console.log(response.data)
+            }catch(err){
+                console.log(err.response.data.error)
+                    setError(err.response.data.error)
+               
+                
+            }
     }
 
     return(
        <div className='container'>
-            <form className='bg-white form-horizontal my-4 mx-4 px-5 py-5 justify-content-center shadow' method='post'>
-                <h2 className='justify-content-center'>Register to Inventory</h2>
+            <form className='bg-white form-horizontal my-4 mx-4 px-5 py-5 justify-content-center shadow'onSubmit={getregister}>
+                {
+                    erro?(
+                        <div className='alert alert-danger'>
+                                {erro}
+                        </div>
+                    ):(
+                        <div>
+                            {msg}
+                        </div>
+                    )
+                }
+         
+                <div className='container'>
+                    <div className='row'>
+                <div className='col'>
                 <div className='form-group'>
                     <label  className='col-sm-2 control-label my-1' >Name</label>
                     <div className='col-sm-10'>
@@ -74,7 +112,8 @@ const SignUp = () =>{
                         type="text" className="form-control my-1" />
                     </div>
                  </div>
-
+                    </div>
+                    <div className='col'>
                  <div className='form-group'>
                     <label  className='col-sm-2 control-label my-1' >Address</label>
                     <div className='col-sm-10'>
@@ -94,7 +133,7 @@ const SignUp = () =>{
                     </div>
                  </div>
                  <div className='form-group'>
-                    <label  className='col-sm-2 control-label my-1' >Company Name</label>
+                    <label  className='col-sm-6 control-label my-1' >Company Name</label>
                     <div className='col-sm-10'>
                         <input 
                         value={companyName}
@@ -103,7 +142,7 @@ const SignUp = () =>{
                     </div>
                  </div>
                  <div className='form-group'>
-                    <label  className='col-sm-2 control-label my-1' >Company Tin</label>
+                    <label  className='col-sm-6 control-label my-1' >Company Tin</label>
                     <div className='col-sm-10'>
                         <input 
                         value={companyTin}
@@ -111,13 +150,14 @@ const SignUp = () =>{
                         type="password" className="form-control my-1" />
                     </div>
                  </div>
-                 <button className='btn btn-success my-2 d-flex justify-content-end' onClick={getregister}>
+                 </div>
+                 <button className='btn btn-success my-2 d-flex text-center justify-content-center' type='submit'>
                     Sign up
                  </button>
-                 <div>
                 <p className='text-center'>
                     Create account <NavLink to={"/login"} > Sign in </NavLink>
                 </p>
+            </div>
             </div>
             </form>
        </div>

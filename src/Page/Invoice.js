@@ -4,13 +4,14 @@ import {
     FaEdit,
     FaCheckSquare,
 } from 'react-icons/fa'
-import { NavLink } from 'react-router-dom';
+import { Navigate, NavLink,Link } from 'react-router-dom';
 import '../App.css'
 import Editinvoice from './Modal/editpage/invoinceEdit';
 import Example from './Modal/NewInvoice';
 import Print from './Modal/PrintInvoice';
 import { useState,useEffect } from 'react';
 import axios from 'axios';
+import BasicDocument from './Modal/editpage/invoinceEdit';
 
 function Invoice() {
     const [getData,setGetData] = useState([])
@@ -31,17 +32,20 @@ function Invoice() {
 
 
     }
+    const edit = (id) =>{
+            console.log(id)
+    }
     return (
         <div>
             <div className='container'>
-            <div className='d-flex justify-content-between'>
+            <div className='d-flex justify-content-between alert alert-primary'>
                     <div>
-                        <b>Invoice</b>
+                        <b>INVOICE</b>
                         <p>all invoice</p>
                     </div>
                     <div className=''>
                         <NavLink to='/newinvoice' >
-                            <button className="btn btn-primary">Add Invoice</button>
+                            <p className="btn btn-primary">Add Invoice</p>
                         </NavLink>
                     </div>
                 </div>
@@ -74,7 +78,10 @@ function Invoice() {
                                     <td className=''>
                                     <button className='btn btn-secondary btn-sm'><FaCheckSquare/> </button>
                                     <button className='btn btn-warning btn-sm'> Unpaid </button>
-                                    <Print id={itemdata._id} />
+                                    <Link to={`/printing/${itemdata._id}`} state={itemdata} >
+                                    <button className='btn btn-success btn-sm'>Print </button>
+                                    </Link>
+                                    
                                          </td>
                                     </tr>
                                     </>

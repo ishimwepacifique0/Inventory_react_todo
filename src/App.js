@@ -11,9 +11,10 @@ import NewInvoice from './Page/Modal/NewInvoice';
 import Login from './Page/Modal/login';
 import SignUp from './Page/Modal/registerUser';
 import { useSelector } from 'react-redux';
+import Print from './Page/Modal/editpage/itemEdit';
+import BasicDocument from './Page/Modal/editpage/invoinceEdit';
 
 function App() {
-  const IsLoggedin = useSelector((state)=>state.authstoredata.IsLoggedin)
   return (
     <BrowserRouter>
     <Sidebar>
@@ -22,12 +23,14 @@ function App() {
           <Route path='/invoice' element={<Invoice/>}/>
           <Route path='/customers' element={<Customer/>}/>
           <Route path='/reports' element={<Report/>}/>
-            <Route path='/items' element={<Items/>}/>
+          <Route path='/items' element={<Items/>}/>
           <Route path='/settings' element={<Settings/>}/>
           <Route path='/newitem' element={<Example />}/>
           <Route path='/newinvoice' element={<NewInvoice />}/>
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<SignUp />} />
+          <Route path='/print/:id' element={<Print/>} />
+          <Route path='/printing/:id' element={<BasicDocument />} />
         </Routes>
       </Sidebar>
     </BrowserRouter>
