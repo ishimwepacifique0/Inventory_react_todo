@@ -4,7 +4,7 @@ import {
     FaTrashAlt
 } from 'react-icons/fa'
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Customer(props) {
     const [getCustomer,setGetCustomer] = useState([])
@@ -47,9 +47,11 @@ function Customer(props) {
                             return(
 
                         <tr>
+                            <Link to={"/invoices"}>
                                     <td className='px-2'>{itemdata.customer.name}</td>
                                     <td className='px-2'>{itemdata.customer.customerTin}</td>
                                     <td className='px-2'>{itemdata.customer.phone}</td>
+                                    </Link>
                         </tr>
                             )
 
