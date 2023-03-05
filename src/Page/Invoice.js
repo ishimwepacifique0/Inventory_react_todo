@@ -4,20 +4,25 @@ import {
     FaEdit,
     FaCheckSquare,
 } from 'react-icons/fa'
-import { Navigate, NavLink,Link } from 'react-router-dom';
+import { Navigate, NavLink,Link,useNavigate } from 'react-router-dom';
 import '../App.css'
 import Editinvoice from './Modal/editpage/invoinceEdit';
 import Example from './Modal/NewInvoice';
 import Print from './Modal/PrintInvoice';
 import { useState,useEffect } from 'react';
 import axios from 'axios';
-import BasicDocument from './Modal/editpage/invoinceEdit';
 
 function Invoice() {
     const [getData,setGetData] = useState([])
+    const user = localStorage.getItem("storeTokendata")
+    const navigate = useNavigate()
     
     useEffect(()=>{
-        getInvoice()
+        if(!user == null){
+            getInvoice()
+        }else{
+            navigate("/login")
+        }
     },[])
 
     const getInvoice = async () =>{

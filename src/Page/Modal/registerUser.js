@@ -99,7 +99,7 @@ const SignUp = () =>{
                         <input 
                         value={password}
                         onChange={(e)=>setPassword(e.target.value)}
-                        type="text" className="form-control my-1" />
+                        type="password" className="form-control my-1" />
                     </div>
                  </div>
 
@@ -120,7 +120,7 @@ const SignUp = () =>{
                         <input 
                         value={address}
                         onChange={(e)=>setAddress(e.target.value)}
-                        type="password" className="form-control my-1" />
+                        type="text" className="form-control my-1" />
                     </div>
                  </div>
                  <div className='form-group'>

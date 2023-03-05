@@ -1,10 +1,19 @@
-import React from 'react';
+import React,{useEffect} from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../App.css'
-import Example from './Modal/iItemModal';
-import NewItem from './Modal/iItemModal';
 
 function Report() {
+  const user = localStorage.getItem("storeTokendata")
+  const navigate = useNavigate()
+
+  useEffect(()=>{
+    if(user == null){
+        navigate("/login")
+        }
+  },[])
+
     return (
+        <>
         <div>
              <div>
             <div className='container'>
@@ -40,6 +49,7 @@ function Report() {
             </div>
         </div>
         </div>
+        </>
     );
 }
 

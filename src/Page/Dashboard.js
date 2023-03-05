@@ -1,8 +1,21 @@
 import React from 'react';
+import { useState,useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Dashboard(props) {
+    const user = localStorage.getItem("storeTokendata")
+    const navigate = useNavigate()
+    useEffect(() => {
+        if(user == null){
+            navigate("/login")
+            }else{
+                <Dashboard />
+            }
+    }, [])
+   
     return (
-        <div className='container'>
+        <>
+            <div className='container'>
             <div className='row'>
                 <div className='col-xl-3 colo-md-6 mb-4'>
                     <div className='card border-left-warning shadow h-100 py-2 bg-primary'>
@@ -78,7 +91,7 @@ function Dashboard(props) {
                 </div>
             </div>
         </div>
+    </>
     );
 }
-
-export default Dashboard;
+export default Dashboard

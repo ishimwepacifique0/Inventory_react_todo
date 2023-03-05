@@ -4,12 +4,19 @@ import {
     FaTrashAlt
 } from 'react-icons/fa'
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function Customer(props) {
     const [getCustomer,setGetCustomer] = useState([])
+    const user = localStorage.getItem("storeTokendata")
+    const navigate = useNavigate()
 
   useEffect(() => {
-    fetchData()
+    if(!user == null){
+        fetchData()
+    }else{
+        navigate("/login")
+    }
   }, [])
 
     const fetchData = async () =>{
