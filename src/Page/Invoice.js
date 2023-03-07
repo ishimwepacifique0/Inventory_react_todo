@@ -18,11 +18,12 @@ function Invoice() {
     const navigate = useNavigate()
     
     useEffect(()=>{
-        if(!user == null){
+        if(!user == ''){
             getInvoice()
-        }else{
-            navigate("/login")
-        }
+         }
+         else{
+             navigate("/login")
+         }
     },[])
 
     const getInvoice = async () =>{

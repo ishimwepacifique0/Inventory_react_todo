@@ -48,6 +48,7 @@ export const LoginCredetial = (data) => async (dispatch) =>{
          console.log(response.data)
          dispatch(login(response.data))
          localStorage.setItem("storeTokendata",JSON.stringify(response.data.token))
+         window.location.href = "/dashboard"
     }catch(erro){
         console.log(erro.response.data.error)
         dispatch(error(erro.response.data.error))

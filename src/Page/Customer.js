@@ -4,7 +4,7 @@ import {
     FaTrashAlt
 } from 'react-icons/fa'
 import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 
 function Customer(props) {
     const [getCustomer,setGetCustomer] = useState([])
@@ -12,7 +12,7 @@ function Customer(props) {
     const navigate = useNavigate()
 
   useEffect(() => {
-    if(!user == null){
+    if(!user == ''){
         fetchData()
     }else{
         navigate("/login")
@@ -40,18 +40,22 @@ function Customer(props) {
                             <th>CustomerTin</th>
                             <th>CustomerName</th>
                             <th>CustomerPhone</th>
+                            <th>View all</th>
                         </tr>
                     </thead>
                     <tbody>
                         {getCustomer.map((itemdata,key)=>{
                             return(
-
                         <tr>
-                            <Link to={"/invoices"}>
-                                    <td className='px-2'>{itemdata.customer.name}</td>
+                            
+                                    <td className='px-2 mx-2'>{itemdata.customer.name}</td>
                                     <td className='px-2'>{itemdata.customer.customerTin}</td>
                                     <td className='px-2'>{itemdata.customer.phone}</td>
+                                    <td><Link>
+                                    Detail
                                     </Link>
+                                        </td>
+                                    
                         </tr>
                             )
 

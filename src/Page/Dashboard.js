@@ -1,15 +1,15 @@
 import React from 'react';
 import { useState,useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 function Dashboard(props) {
     const user = localStorage.getItem("storeTokendata")
+     const isLoged = useSelector(state=>state.authstoredata.isLoggedin)
     const navigate = useNavigate()
     useEffect(() => {
         if(user == null){
             navigate("/login")
-            }else{
-                <Dashboard />
             }
     }, [])
    

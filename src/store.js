@@ -3,7 +3,7 @@ import Authslice  from "./feather/authentication";
 
 const Store = configureStore({
     reducer:{
-        "authstoredata": Authslice
+        authstoredata: Authslice
     }
 })
 
