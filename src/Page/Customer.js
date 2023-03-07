@@ -51,7 +51,7 @@ function Customer(props) {
                                     <td className='px-2 mx-2'>{itemdata.customer.name}</td>
                                     <td className='px-2'>{itemdata.customer.customerTin}</td>
                                     <td className='px-2'>{itemdata.customer.phone}</td>
-                                    <td><Link>
+                                    <td><Link to={'/detail'} state={itemdata}>
                                     Detail
                                     </Link>
                                         </td>

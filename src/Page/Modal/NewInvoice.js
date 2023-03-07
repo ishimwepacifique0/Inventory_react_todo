@@ -13,9 +13,12 @@ const NewInvoice = () => {
   const [itemname,setItemname] = useState('')
   const [quantity,setQuantity] = useState('')
   const [unitPrice,setUnitPrice] = useState('')
+  const [companyname,setCompany] = useState('')
   const [itenData,setItemData] = useState([])
   const [msg,setMsg] = useState('')
+  const [allItems, setAllItems] = useState([])
   const [msgsuccess,setMsgsuccess] = useState('')
+  // const [inputmore,setInputmore] = useState([{item:'',quantity:'',salesPrice:''}])
 
   useEffect(() => {
    getItem()
@@ -27,21 +30,26 @@ const NewInvoice = () => {
     })
   }
 
+  const handleinputmore = ()=>{
+    setAllItems([...allItems,{
+      item: itemname,
+      quantity,
+      salesPrice: unitPrice
+    } ])
+    setItemname("")
+    setQuantity("")
+    setUnitPrice("")
+    // alert('add more field')
+    // setInputmore([...inputmore,{item:'',quantity:'',salesPrice:''}])
+  }
   const SaveInvoice = async (e) =>{
-    
     e.preventDefault()
-
     const data = {
       "customerName": customerName,
       "customerPhone": customerPhone,
       "customerTin": customerTin,
-      "items": [
-        {
-          "item": itemname,
-          "quantity": quantity,
-          "salesPrice": unitPrice
-        }
-      ]
+      "companyName":companyname,
+      "items": allItems
     }
     console.log(data)
     console.log(itemname)
@@ -77,7 +85,10 @@ const NewInvoice = () => {
                         </NavLink>
                     </div>
                   </div>
-          <form className="form-horizontal jusify-content-center bg-white mx-2 px-5 py-4 shadow" method="post" onSubmit={SaveInvoice}>
+          <div className="form-horizontal jusify-content-center bg-white mx-2 px-5 py-4 shadow"
+          //  method="post" 
+          // onSubmit={SaveInvoice}
+          >
         
           <div className='alert alert-primary'>
               <h6 className='text-center'>Add new Invoice in Stock</h6>
@@ -133,6 +144,18 @@ const NewInvoice = () => {
                />
               </div>
               </div>
+              <div className="form-group">
+              <label className="col-sm-2 control-label my-1">Company name</label>
+              <div className="col-sm-10">
+              <input 
+              type="text" 
+              name="address"
+              className="form-control my-1"  
+              value={companyname}
+              onChange={(e)=>setCompany(e.target.value)}
+               />
+              </div>
+              </div>
                 </div>
                 <div className='col'>
               <div className="form-group">
@@ -179,15 +202,34 @@ const NewInvoice = () => {
                       </div>
                       </div>
                       </div>
+                      <div>
+                        {
+                          allItems.map((each)=>{
+                            // console.log(itenData.filter((item)=>item?._id == each?.item))
+                            return(
+                              <div className='d-flex'>
+                                <p className='mx-1'>{(itenData.filter((item)=>item._id == each.item))[0]?.name}</p>
+                                <p className='mx-1'>{each?.quantity}</p>
+                                <p className='mx-1'>{each?.salesPrice}</p>
+                              </div>
+                            )
+                          })
+                        }
+                      </div>
                     <div className='form-group my-1'>
-                      <button className='btn btn-success'>
+                      <div className=' d-flex justify-content-between'>
+                      <button className='btn btn-success' onClick={SaveInvoice}>
                         Save
                       </button>
+                      <button className='btn btn-success' onClick={handleinputmore} >
+                        Add more items
+                      </button>
+                      </div>
                       </div>
                     </div>
                     </div>
               
-              </form>
+              </div>
     </div>
   );
 }

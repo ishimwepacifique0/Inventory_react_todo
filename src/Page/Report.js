@@ -1,16 +1,34 @@
 import React,{useEffect} from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../App.css'
+import axios from 'axios';
 
 function Report() {
   const user = localStorage.getItem("storeTokendata")
   const navigate = useNavigate()
+  const [countdata,setCountdata] = useState([])
 
   useEffect(()=>{
+    handlecount()
     if(user == null){
         navigate("/login")
         }
   },[])
+
+  const handlecount = async () =>{
+    try {
+        axios.get('https://inventory-bay.onrender.com/api/invoice/get')
+        .then((res)=>{
+            console.log(res.data.invoices)
+            setCountdata(res.data.invoices)
+        }).catch(err=>console.log(err))
+            
+           
+    }catch(err){
+        console.log(err)
+    }
+}
 
     return (
         <>
@@ -25,7 +43,6 @@ function Report() {
                 <table className='table shadow'>
                     <thead className="bg-primary text-white">
                         <tr>
-                            <th>InvoiceId</th>
                             <th>Customer</th>
                             <th>Items</th>
                             <th>Sales Date</th>
@@ -35,15 +52,22 @@ function Report() {
                         </tr>
                     </thead>
                     <tbody>
-                         <tr>
-                            <td>11256</td>
-                            <td>ISHIMWE</td>
-                            <td>Robinet</td>
-                            <td>2000-03-04</td>
-                            <td>2000-01-01</td>
-                            <td>50000</td>
-                            <td>Paid</td>
-                         </tr>
+                         {
+                            countdata.map((item)=>{
+                                return(
+                                    <tr>
+                                        <td>{item.customer.name}</td>
+                                        <td>{item.items.map(item=>item.item.name)}</td>
+                                        <td>{item.date}</td>
+                                        <td>{
+                                             item.paidDate
+                                            }</td>
+                                        <td>{item.total}</td>
+                                        <td>{item.status}</td>
+                                    </tr>
+                                )
+                            })
+                         }
                     </tbody>
                 </table>
             </div>

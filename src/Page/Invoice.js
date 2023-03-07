@@ -16,6 +16,7 @@ function Invoice() {
     const [getData,setGetData] = useState([])
     const user = localStorage.getItem("storeTokendata")
     const navigate = useNavigate()
+    const [paid,setPaid] = useState('')
     
     useEffect(()=>{
         if(!user == ''){
@@ -36,11 +37,31 @@ function Invoice() {
         console.log(err)
     }
 
-
     }
-    const edit = (id) =>{
+    const paidHandle = async (id,data) =>{
+            const dataedit = {
+                "status": "Paid"
+            }
             console.log(id)
+            try{
+                 const response = await axios.patch(`https://inventory-bay.onrender.com/api/invoice/updateStatus/${id}`,dataedit)
+                console.log(response.data)
+             }catch(err){
+                console.log(err)
+            }
     }
+    const acceptedHandle = async (id) =>{
+        const dataedit = {
+            "status": "Accepted",
+        }
+        console.log(id)
+        try{
+             const response = await axios.patch(`https://inventory-bay.onrender.com/api/invoice/updateStatus/${id}`,dataedit)
+            console.log(response.data)
+         }catch(err){
+            console.log(err)
+        }
+}
     return (
         <div>
             <div className='container'>
@@ -77,14 +98,27 @@ function Invoice() {
                                     <td>{itemdata.customer.name}</td>
                                     <td>{itemdata.customer.customerTin}</td>
                                     <td>{itemdata.customer.phone}</td>
-                                    <td>{itemdata.items.map(item=>item.item?.name)}</td>
+                                    <td>{itemdata.items.map(item=>item.item?.name,)}</td>
                                     <td>{itemdata.items.map(item=>item.quantity)}</td>
                                     <td>{itemdata.items.map(item=>item.salesPrice)}</td>
                                     <td>{itemdata.total}</td>
                                     <td className=''>
-                                    <button className='btn btn-secondary btn-sm'><FaCheckSquare/> </button>
-                                    <button className='btn btn-warning btn-sm'> Unpaid </button>
-                                    <Link to={`/printing/${itemdata._id}`} state={itemdata} >
+                                    {
+                                        itemdata.status == "Paid"?(
+                                            <button className='btn btn-danger btn-sm d-none' onClick={()=>paidHandle(itemdata._id)}> <FaTrashAlt/> </button>
+                                        ):(
+                                            <button className='btn btn-success btn-sm' onClick={()=>paidHandle(itemdata._id)}> <FaCheckSquare/> </button>
+                                        )
+                                    }
+                                    {
+                                        itemdata.status == "Accepted"?(
+                                            <button className='btn btn-danger btn-sm d-none' onClick={()=>acceptedHandle(itemdata._id)}> <FaTrashAlt/> </button>
+                                        ):(
+                                            <button className='btn btn-warning btn-sm' onClick={()=>acceptedHandle(itemdata._id)}> Accepted</button>
+                                        )
+                                    }
+                                                                       
+                                     <Link to={`/printing/${itemdata._id}`} state={itemdata} >
                                     <button className='btn btn-success btn-sm'>Print </button>
                                     </Link>
                                     

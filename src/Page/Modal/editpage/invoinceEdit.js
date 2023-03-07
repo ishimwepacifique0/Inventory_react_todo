@@ -10,8 +10,10 @@ import {
   // Create Document Component
   function BasicDocument() {
     const location = useLocation()
+    const datauser = localStorage.getItem("userData")
+    const convert = JSON.parse(datauser)
     const data = location.state;
-     console.log(data)
+     console.log(convert.id)
     return (
       <PDFViewer style={styles.viewer}>
         {/* Start of the document*/}
@@ -20,9 +22,14 @@ import {
           <Page size="A4" style={styles.body}>
                 <Text style={styles.header}>Invoice</Text>
                 <View style={{flexDirection:'column',fontSize:14,fontWeight:'bold',justifyContent:'space-around',}}>
-                    <Text style={{margin:4,fontWeight:'bold'}}>Company Name: {data.customer.name}</Text>
-                    <Text style={{margin:4,fontWeight:'bold'}}>Company phone: {data.customer.phone}</Text>
-                    <Text style={{margin:4,fontWeight:'bold'}}>Company Tin: {data.customer.customerTin}</Text>
+                    <Text style={{margin:4,fontWeight:'bold'}}>Company Name: {convert.companyName}</Text>
+                    <Text style={{margin:4,fontWeight:'bold'}}>Company phone: {convert.phone}</Text>
+                    <Text style={{margin:4,fontWeight:'bold'}}>Company Tin: {convert.companyTin}</Text>
+                </View>
+                    <View style={{flexDirection:'column',fontSize:14,fontWeight:'bold',justifyContent:'space-around',position:'relative',left:350 }}>
+                    <Text style={{margin:4,fontWeight:'bold'}}>CustomerName: {data.customer.name}</Text>
+                    <Text style={{margin:4,fontWeight:'bold'}}>CustomerPhone: {data.customer.phone}</Text>
+                    <Text style={{margin:4,fontWeight:'bold'}}>CustomerTin: {data.customer.customerTin}</Text>
                 </View>
                 <View style={{
                     flexDirection:'row',
@@ -49,7 +56,7 @@ import {
                     color:'white',
                     padding:6
                     }}>
-                    <Text>{data.items.map(item => item.item?.name)}</Text>
+                    <Text style={{flexDirection:'column'}}>{data.items.map(item => item.item?.name)}</Text>
                     <Text>{data.items.map(item => item.quantity)}</Text>
                     <Text>{data.items.map(item => item.salesPrice)}</Text>
                     <Text>{data.total}</Text>

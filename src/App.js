@@ -13,6 +13,7 @@ import SignUp from './Page/Modal/registerUser';
 import { useSelector } from 'react-redux';
 import Print from './Page/Modal/editpage/itemEdit';
 import BasicDocument from './Page/Modal/editpage/invoinceEdit';
+import Detailcustomer from './Page/detailCustomer';
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
           <Route path='/signup' element={<SignUp />} />
           <Route path='/print/:id' element={<Print/>} />
           <Route path='/printing/:id' element={<BasicDocument />} />
+          <Route path='/detail' element={< Detailcustomer />} />
         </Routes>
       </Sidebar>
     </BrowserRouter>

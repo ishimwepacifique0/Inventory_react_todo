@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React from 'react';
 import { useState,useEffect } from 'react';
 import { useSelector } from 'react-redux';
@@ -7,12 +8,43 @@ function Dashboard(props) {
     const user = localStorage.getItem("storeTokendata")
      const isLoged = useSelector(state=>state.authstoredata.isLoggedin)
     const navigate = useNavigate()
+    const [countdata,setCountdata] = useState([])
+    const [countdataitem,setCountdataitem] = useState([])
+
+    const handlecount = async () =>{
+        try {
+            axios.get('https://inventory-bay.onrender.com/api/invoice/get')
+            .then((res)=>{
+                console.log(res.data.invoices)
+                setCountdata(res.data.invoices)
+            }).catch(err=>console.log(err))
+                
+               
+        }catch(err){
+            console.log(err)
+        }
+    }
+
+ 
+                const handlecountitem= async () =>{
+                    try {
+                           axios.get('https://inventory-bay.onrender.com/api/item/get')
+                           .then((response)=>{
+                               setCountdataitem(response.data.items)
+                               console.log(response.data.items)
+                           })
+                    }catch(err){
+                        console.log(err)
+                    }
+                }
+    
     useEffect(() => {
+        handlecount()
+        handlecountitem()
         if(user == null){
             navigate("/login")
             }
     }, [])
-   
     return (
         <>
             <div className='container'>
@@ -25,7 +57,9 @@ function Dashboard(props) {
                                     <div className='text-xs font-weight-bold text-white text-uppercase mb-1'>
                                         Pending the Invoice
                                         <div className='h5 mb-0 font-weight-bold text-gray-800'>
-                                                4
+                                                {
+                                                    countdata.length
+                                                }
                                         </div>
                                     </div>
                                     <div className='col-auto'>
@@ -43,7 +77,9 @@ function Dashboard(props) {
                                     <div className='text-xs font-weight-bold text-white text-uppercase mb-1'>
                                         Pending the Item
                                         <div className='h5 mb-0 font-weight-bold text-gray-800'>
-                                                3
+                                        {
+                                                    countdataitem.length
+                                                }
                                         </div>
                                     </div>
                                     <div className='col-auto'>
@@ -61,7 +97,9 @@ function Dashboard(props) {
                                     <div className='text-xs font-weight-bold text-white text-uppercase mb-1'>
                                         Pending the Customer
                                         <div className='h5 mb-0 font-weight-bold text-gray-800'>
-                                                3
+                                        {
+                                                    countdata.length
+                                                }
                                         </div>
                                     </div>
                                     <div className='col-auto'>
