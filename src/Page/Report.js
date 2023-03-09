@@ -3,6 +3,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../App.css'
 import axios from 'axios';
+import { MDBBadge, MDBBtn, MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
+
 
 function Report() {
   const user = localStorage.getItem("storeTokendata")
@@ -18,7 +20,11 @@ function Report() {
 
   const handlecount = async () =>{
     try {
-        axios.get('https://inventory-bay.onrender.com/api/invoice/get')
+        axios.get('https://inventory-bay.onrender.com/api/invoice/get',{
+            headers: {
+                'Authorization': `Bearer ${user}`
+            }
+        })
         .then((res)=>{
             console.log(res.data.invoices)
             setCountdata(res.data.invoices)
@@ -40,36 +46,52 @@ function Report() {
                         <b>Report</b>
                     </div>
                 </div>
-                <table className='table shadow'>
-                    <thead className="bg-primary text-white">
+                <MDBTable align='middle'>
+                    <MDBTableHead>
                         <tr>
-                            <th>Customer</th>
-                            <th>Items</th>
-                            <th>Sales Date</th>
-                            <th>Release Time</th>
-                            <th>Amount</th>
-                            <th>Confirm paid/Unpaid</th>
+                        <th scope='col'>CustomerName</th>
+                        <th scope='col'>Item name</th>
+                        <th scope='col'>Sales date</th>
+                        <th scope='col'>Realese date</th>
+                        <th scope='col'>Amount</th>
+                        <th scope='col'>Status</th>
                         </tr>
-                    </thead>
-                    <tbody>
-                         {
+                    </MDBTableHead>
+                    <MDBTableBody>
+                    {
                             countdata.map((item)=>{
                                 return(
-                                    <tr>
-                                        <td>{item.customer.name}</td>
-                                        <td>{item.items.map(item=>item.item.name)}</td>
-                                        <td>{item.date}</td>
-                                        <td>{
-                                             item.paidDate
-                                            }</td>
-                                        <td>{item.total}</td>
-                                        <td>{item.status}</td>
-                                    </tr>
-                                )
+
+                        <tr>
+                        <td>
+                            <div className='ms-3'>
+                                <p className='fw-bold mb-1'>{item.customer.name}</p>
+                            </div>
+                        </td>
+                        <td>
+                            <p className='fw-normal mb-1'>{item.items.map(item=>item.item.name)}</p>
+                        </td>
+                        <td>
+                            <p className='fw-normal mb-1'>{item.date}</p>
+                        </td>
+                        <td>
+                            <p className='fw-normal mb-1'>{item.paidDate}</p>
+                        </td>
+                         <td>
+                            <p className='fw-normal mb-1'>{item.total}</p>
+                        </td>
+
+                        <td>
+                            <MDBBadge color='warning' pill>
+                            {item.status}
+                            </MDBBadge>
+                        </td>
+                        </tr>
+                              )
                             })
                          }
-                    </tbody>
-                </table>
+                    </MDBTableBody>
+                    </MDBTable>
             </div>
         </div>
         </div>

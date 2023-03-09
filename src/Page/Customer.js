@@ -20,7 +20,12 @@ function Customer(props) {
   }, [])
 
     const fetchData = async () =>{
-        const response = await axios.get('https://inventory-bay.onrender.com/api/invoice/get')
+        const response = await axios.get('https://inventory-bay.onrender.com/api/invoice/get',{
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${user}`
+            }
+        })
         console.log(response.data.invoices)
         setGetCustomer(response.data.invoices)
     }

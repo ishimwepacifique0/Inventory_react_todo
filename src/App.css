@@ -13,7 +13,7 @@ main{
   height:100vh;
 }
 .sidebar{
-  height: 130vh;
+  height: 100vh;
   width: 43vh;
   padding: 1rem;
   background-color:#363AA3;
@@ -31,6 +31,10 @@ main{
   color: aliceblue;
   margin: 8px;
   padding: 3px;
+}
+.w{
+  width:230px;
+  margin:0px;
 }
 .active{
   display: flex;

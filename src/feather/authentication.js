@@ -71,6 +71,7 @@ export const SignupCredentail = (data) => async (dispatch)=>{
 export const LogoutCredentail = ()=> (dispatch) =>{
        console.log('you\'re log out')
        localStorage.removeItem('storeTokendata')
+       localStorage.removeItem('userData')
        dispatch(logout())
        window.location.href = "/login"
  

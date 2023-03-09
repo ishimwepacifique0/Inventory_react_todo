@@ -8,9 +8,10 @@ import { Navigate, NavLink,Link,useNavigate } from 'react-router-dom';
 import '../App.css'
 import Editinvoice from './Modal/editpage/invoinceEdit';
 import Example from './Modal/NewInvoice';
-import Print from './Modal/PrintInvoice';
+import Print from './Modal/Basic';
 import { useState,useEffect } from 'react';
 import axios from 'axios';
+import { MDBBadge } from 'mdb-react-ui-kit';
 
 function Invoice() {
     const [getData,setGetData] = useState([])
@@ -29,7 +30,12 @@ function Invoice() {
 
     const getInvoice = async () =>{
         try{ 
-            const response = await axios.get('https://inventory-bay.onrender.com/api/invoice/get')
+            const response = await axios.get('https://inventory-bay.onrender.com/api/invoice/get',{
+                headers:{
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${user}`
+                }
+            })
             console.log(response.data.invoices)
             setGetData(response.data.invoices)
 
@@ -46,6 +52,9 @@ function Invoice() {
             try{
                  const response = await axios.patch(`https://inventory-bay.onrender.com/api/invoice/updateStatus/${id}`,dataedit)
                 console.log(response.data)
+                if(response.status == 200){
+                    window.location.reload(true)
+                }
              }catch(err){
                 console.log(err)
             }
@@ -58,6 +67,9 @@ function Invoice() {
         try{
              const response = await axios.patch(`https://inventory-bay.onrender.com/api/invoice/updateStatus/${id}`,dataedit)
             console.log(response.data)
+            if(response.status == 200){
+                window.location.reload(true)
+            }
          }catch(err){
             console.log(err)
         }
@@ -102,7 +114,7 @@ function Invoice() {
                                     <td>{itemdata.items.map(item=>item.quantity)}</td>
                                     <td>{itemdata.items.map(item=>item.salesPrice)}</td>
                                     <td>{itemdata.total}</td>
-                                    <td className=''>
+                                    <td className=' d-flex'>
                                     {
                                         itemdata.status == "Paid"?(
                                             <button className='btn btn-danger btn-sm d-none' onClick={()=>paidHandle(itemdata._id)}> <FaTrashAlt/> </button>
@@ -117,9 +129,9 @@ function Invoice() {
                                             <button className='btn btn-warning btn-sm' onClick={()=>acceptedHandle(itemdata._id)}> Accepted</button>
                                         )
                                     }
-                                                                       
+
                                      <Link to={`/printing/${itemdata._id}`} state={itemdata} >
-                                    <button className='btn btn-success btn-sm'>Print </button>
+                                    <MDBBadge>Print</MDBBadge>                            
                                     </Link>
                                     
                                          </td>

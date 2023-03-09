@@ -11,6 +11,7 @@ import axios from 'axios';
 import Print from './Modal/editpage/itemEdit';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { MDBBadge } from 'mdb-react-ui-kit';
 
 function Items() {
     const [getdata,setGetdata] = useState([])
@@ -32,7 +33,12 @@ function Items() {
          const getItems = async () => {
     
          try{
-           const response = await axios.get('https://inventory-bay.onrender.com/api/item/get')
+           const response = await axios.get('https://inventory-bay.onrender.com/api/item/get',{
+            headers:{
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${user}`
+            }
+           })
             console.log(response.data.items)
             setGetdata(response.data.items)
         }catch(err){
@@ -43,7 +49,13 @@ function Items() {
         const deletedata = async (id) =>{
             try{
                 console.log(id)
-                const response = await axios.delete(`https://inventory-bay.onrender.com/api/item/delete/${id}`)
+                const response = await axios.delete(`https://inventory-bay.onrender.com/api/item/delete/${id}`,
+                {
+                    headers:{
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${user}`
+                    }
+                })
                 console.log(response.data)
                 if(response.status == 200){
                     setMsgsuccess(response.data.message)

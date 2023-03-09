@@ -54,7 +54,12 @@ const NewInvoice = () => {
     console.log(data)
     console.log(itemname)
     try{
-      const response = await axios.post('https://inventory-bay.onrender.com/api/invoice/create',data)
+      const response = await axios.post('https://inventory-bay.onrender.com/api/invoice/create',data,{
+        headers: {
+          'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('storeTokendata')}`
+        }
+      })
       console.log(response.data)
       if(response.status == 200){
         setMsgsuccess("Invoice Saved successfully")
@@ -120,7 +125,7 @@ const NewInvoice = () => {
               </div>
 
               <div className="form-group">
-              <label className="col-sm-2 control-label my-1">CustomerPhonenumber</label>
+              <label className="col-sm-5 control-label my-1">CustomerPhonenumber</label>
               <div className="col-sm-10">
               <input 
               type="text" 
@@ -145,7 +150,7 @@ const NewInvoice = () => {
               </div>
               </div>
               <div className="form-group">
-              <label className="col-sm-2 control-label my-1">Company name</label>
+              <label className="col-sm-5 control-label my-1">Company name</label>
               <div className="col-sm-10">
               <input 
               type="text" 

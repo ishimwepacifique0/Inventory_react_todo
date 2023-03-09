@@ -31,7 +31,7 @@ const Sidebar = ({children}) =>{
                         <div className="bars">
                         </div>
                 </div>
-                <hr className="sidebar-divider "/>
+                <hr className="sidebar-divider col"/>
                 {
                     path.map((item,index)=>{
                         return(
@@ -42,15 +42,16 @@ const Sidebar = ({children}) =>{
                         )
                     })
                 }
+                <div className="position-absolute bottom-0 end-0 left-0">
                 {
                     !user == ''?(
-                        <button className="btn btn-danger text-center mx-1" onClick={logout}>logout</button>
+                        <button className="btn btn-danger text-center mx-1 w" onClick={logout}>logout</button>
 
                     ):(
                         <button className="btn btn-danger text-center mx-1 d-none" onClick={logout}>logout</button>
 
                     )
-                }
+                }</div>
               </div>
         </div>
         <div>

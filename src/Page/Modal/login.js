@@ -24,8 +24,7 @@ const Login = () =>{
         console.log(data)
     }
     return(
-       <div className='container rounded'>
-            <div className='row'>
+       <div className=' rounded d-flex justify-content-center'>
                 <div className='col-sm-7'>
             <form className='bg-white form-horizontal my-4 mx-4 px-5 py-5 justify-content-center shadow'
             onSubmit={AuthLogin}
@@ -72,7 +71,6 @@ const Login = () =>{
             </form>
                 </div>
             </div>
-       </div>
     )
 }
 export default Login;

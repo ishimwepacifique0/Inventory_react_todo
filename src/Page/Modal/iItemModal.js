@@ -28,7 +28,12 @@ const Example = () => {
     }
     console.log(data)
     try {
-      const response = await axios.post('https://inventory-bay.onrender.com/api/item/create', data)
+      const response = await axios.post('https://inventory-bay.onrender.com/api/item/create', data,{
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer'+ localStorage.getItem('token')
+        }
+      })
       console.log(response.data)
       if (response.status == 200) {
         setMsgsuccess("Saved successfully")
