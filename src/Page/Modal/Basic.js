@@ -31,6 +31,7 @@ export default function Basic({children}) {
   const [countdata,setCountdata] = useState([])
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const user = localStorage.getItem("storeTokendata")
   
 
   const toggleShow = () => setShowShow(!showShow);
@@ -40,7 +41,7 @@ export default function Basic({children}) {
         axios.get('https://inventory-bay.onrender.com/api/invoice/get',{
           headers:{
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('storeTokendata')}`
+            'Authorization': `Bearer ${user}`
           }
         }
         )
@@ -55,7 +56,7 @@ export default function Basic({children}) {
     }
 }
       useEffect(() => {
-       handlecount();
+          handlecount();
       }, [])
 
       const logout = () =>{
@@ -68,7 +69,7 @@ export default function Basic({children}) {
   return (
     <>
       <MDBCollapse show={showShow} tag="nav" className="d-lg-block bg-white sidebar">
-        <div className="position-sticky">
+        <div className="position-fixed">
           <MDBListGroup flush className="mx-3 mt-4">
             <MDBRipple rippleTag='span'>
               <MDBListGroupItem tag='a' href='#' action className='border-0 border-bottom rounded rounded'>
@@ -195,8 +196,12 @@ export default function Basic({children}) {
           </MDBNavbarNav>
         </MDBContainer>
       </MDBNavbar>
-      <div className='d-flex flex-row justify-content-end'>
+      <div className='d-flex flex-row justify-content-end row '>
+        <div className='col-sm-10'>
+        <div className='col align-self-end'>
         <main>{children}</main>
+        </div>
+        </div>
       </div>
     </>
   );

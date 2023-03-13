@@ -13,11 +13,15 @@ import { useState,useEffect } from 'react';
 import axios from 'axios';
 import { MDBBadge } from 'mdb-react-ui-kit';
 
+
 function Invoice() {
     const [getData,setGetData] = useState([])
     const user = localStorage.getItem("storeTokendata")
     const navigate = useNavigate()
     const [paid,setPaid] = useState('')
+
+
+    console.log(typeof user)
     
     useEffect(()=>{
         if(!user == ''){
@@ -30,11 +34,12 @@ function Invoice() {
 
     const getInvoice = async () =>{
         try{ 
-            const response = await axios.get('https://inventory-bay.onrender.com/api/invoice/get',{
-                headers:{
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${user}`
-                }
+            const response = await axios({url:'https://inventory-bay.onrender.com/api/invoice/get',
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${user}`
+            }
+                
             })
             console.log(response.data.invoices)
             setGetData(response.data.invoices)
@@ -77,7 +82,7 @@ function Invoice() {
     return (
         <div>
             <div className='container'>
-            <div className='d-flex justify-content-between alert alert-primary'>
+            <div className='d-flex justify-content-between '>
                     <div>
                         <b>INVOICE</b>
                         <p>all invoice</p>
@@ -88,6 +93,7 @@ function Invoice() {
                         </NavLink>
                     </div>
                 </div>
+                <div  style={{overflowX:'auto'}}>
                 <table className='table'>
                     <thead className="bg-primary text-white">
                         <tr>                
@@ -142,6 +148,7 @@ function Invoice() {
                         }
                     </tbody>
                 </table>
+                </div>
             </div>
         </div>
     );

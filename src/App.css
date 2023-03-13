@@ -1,4 +1,4 @@
-*{
+/* *{
   margin:0px;
   padding:0px;
 }
@@ -9,8 +9,6 @@
 }
 main{
   padding: 20px;
-  width:170vh;
-  height:100vh;
 }
 .sidebar{
   height: 100vh;
@@ -77,4 +75,4 @@ main{
   width:50px;
   height: 50px;
   border-radius:10px
-}
+} */

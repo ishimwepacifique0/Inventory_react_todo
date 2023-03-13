@@ -15,6 +15,7 @@ import Detailcustomer from './Page/detailCustomer';
 import ProfilePage from './Page/Settings'
 import Applogin from './Page/Modal/editpage/login'
 import AppTable from './Page/Modal/editpage/table'
+import EditProfile from './Page/Modal/editpage/editProfile';
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
           <Route path='/detail' element={< Detailcustomer />} />
           <Route path='/login-user' element={<Applogin />} />
           <Route path='/table-user' element={<AppTable />} />
+          <Route path = '/edit-user' element={<EditProfile></EditProfile>} />
         </Routes>
       </Basic>
       {/* </Sidebar> */}

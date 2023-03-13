@@ -119,7 +119,7 @@ import {
       color: 'grey',
     },
     viewer:{
-        width:window.innerWidth,
-        height:window.innerHeight
+        width:400,
+        height:500
     }
   });

@@ -47,7 +47,7 @@ export const LoginCredetial = (data) => async (dispatch) =>{
          const response = await axios.post('https://inventory-bay.onrender.com/api/auth/login',data)
          console.log(response.data)
          dispatch(login(response.data))
-         localStorage.setItem("storeTokendata",JSON.stringify(response.data.token))
+         localStorage.setItem("storeTokendata",response.data.token)
          localStorage.setItem("userData",JSON.stringify(response.data.manager))
          window.location.href = "/dashboard"
     }catch(erro){

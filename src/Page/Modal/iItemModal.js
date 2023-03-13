@@ -11,6 +11,7 @@ const Example = () => {
   const [currentStock, setCurrenStock] = useState('')
   const [msg, setMsg] = useState('')
   const [msgsuccess, setMsgsuccess] = useState('')
+  const user = localStorage.getItem('storeTokendata')
   const Savedata = async (e) => {
     e.preventDefault()
     const data = {
@@ -31,7 +32,7 @@ const Example = () => {
       const response = await axios.post('https://inventory-bay.onrender.com/api/item/create', data,{
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer'+ localStorage.getItem('token')
+          'Authorization': `Bearer ${user}`
         }
       })
       console.log(response.data)
@@ -51,7 +52,7 @@ const Example = () => {
   }
   return (
     <div className='container'>
-      <div className='d-flex justify-content-between alert alert-primary'>
+      <div className='d-flex justify-content-between'>
         <div>
           <b>ITEMS</b>
         </div>
@@ -62,16 +63,16 @@ const Example = () => {
         </div>
       </div>
       <form className="form-horizontal jusify-content-center my-1 py-5 mx-3 bg-white px-5 shadow" method="post" onSubmit={Savedata} >
-        <div className='alert alert-primary'>
+        <div className=''>
           <h6 className='text-center'>Add new item in Stock</h6>
         </div>
         {!msg == '' ? (
-          <div className='alert  alert-danger text-center'>
+          <div className='text-danger text-center'>
             {msg}
           </div>
         ) : null}
         {!msgsuccess == '' ? (
-          <div className='alert  alert-success text-center'>
+          <div className='text-success text-center'>
             {msgsuccess}
           </div>
         ) : null}

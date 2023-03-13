@@ -16,19 +16,39 @@ import {
   MDBListGroup,
   MDBListGroupItem
 } from 'mdb-react-ui-kit';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { LogoutCredentail } from '../feather/authentication';
 import { useEffect } from 'react';
 import EditProfile from './Modal/editpage/editProfile';
+import axios from 'axios';
 
 export default function ProfilePage() {
-    // const [convert,setConvert] = useState([])
+    // const [datauser,setConvert] = useState([])
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const user  = localStorage.getItem('storeTokendata')
 
     const data = localStorage.getItem("userData")
-    const convert = JSON.parse(data)
+    const [datauser,setDatauser] = useState([])
+
+    useEffect(()=>{
+      getuserdata()
+    },[])
+
+    const getuserdata = async () =>{
+      try{
+          const response = await axios.get('https://inventory-bay.onrender.com/api/auth/user/',{
+            headers:{
+              Authorization: `Baerer ${user}`
+            }
+          })
+          console.log(response.data.user)
+          setDatauser(response.data.user)
+      }catch(err){
+        console.log(err)
+      }
+    }
 
   return (
     <section style={{ backgroundColor: '#eee' }}>
@@ -51,11 +71,13 @@ export default function ProfilePage() {
                   className="rounded-circle"
                   style={{ width: '150px' }}
                   fluid />
-                <p className="text-muted mb-1">{convert.name}</p>
-                <p className="text-muted mb-4">{convert.address}</p>
+                <p className="text-muted mb-1">{datauser.name}</p>
+                <p className="text-muted mb-4">{datauser.address}</p>
                 <div className="d-flex justify-content-center mb-2">
                   <MDBBtn className="bg-danger" >Logout</MDBBtn>
-                  <EditProfile />
+                  <Link to='/edit-user'>
+                    <MDBBtn>edit</MDBBtn>
+                  </Link>
                 </div>
               </MDBCardBody>
             </MDBCard>
@@ -68,7 +90,7 @@ export default function ProfilePage() {
                     <MDBCardText>Company name</MDBCardText>
                   </MDBCol>
                   <MDBCol sm="9">
-                    <MDBCardText className="text-muted">{convert.companyName}</MDBCardText>
+                    <MDBCardText className="text-muted">{datauser.companyName}</MDBCardText>
                   </MDBCol>
                 </MDBRow>
                 <hr />
@@ -77,7 +99,7 @@ export default function ProfilePage() {
                     <MDBCardText>Email</MDBCardText>
                   </MDBCol>
                   <MDBCol sm="9">
-                    <MDBCardText className="text-muted">{convert.email}</MDBCardText>
+                    <MDBCardText className="text-muted">{datauser.email}</MDBCardText>
                   </MDBCol>
                 </MDBRow>
                 <hr />
@@ -86,7 +108,7 @@ export default function ProfilePage() {
                     <MDBCardText>Phone</MDBCardText>
                   </MDBCol>
                   <MDBCol sm="9">
-                    <MDBCardText className="text-muted">{convert.phone}</MDBCardText>
+                    <MDBCardText className="text-muted">{datauser.phone}</MDBCardText>
                   </MDBCol>
                 </MDBRow>
                 <hr />
@@ -95,7 +117,7 @@ export default function ProfilePage() {
                     <MDBCardText>Address</MDBCardText>
                   </MDBCol>
                   <MDBCol sm="9">
-                    <MDBCardText className="text-muted">{convert.address}</MDBCardText>
+                    <MDBCardText className="text-muted">{datauser.address}</MDBCardText>
                   </MDBCol>
                 </MDBRow>
                 <hr/>
@@ -104,7 +126,7 @@ export default function ProfilePage() {
                     <MDBCardText>Company Tin</MDBCardText>
                   </MDBCol>
                   <MDBCol sm="9">
-                    <MDBCardText className="text-muted">{convert.companyTin}</MDBCardText>
+                    <MDBCardText className="text-muted">{datauser.companyTin}</MDBCardText>
                   </MDBCol>
                 </MDBRow>
               </MDBCardBody>

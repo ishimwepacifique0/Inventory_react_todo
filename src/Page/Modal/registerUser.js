@@ -147,7 +147,7 @@ const SignUp = () =>{
                         <input 
                         value={companyTin}
                         onChange={(e)=>setCompanyTin(e.target.value)}
-                        type="password" className="form-control my-1" />
+                        type="text" className="form-control my-1" />
                     </div>
                  </div>
                  </div>

@@ -68,7 +68,7 @@ function Items() {
     return (
         <div>
             <div className='container'>
-                <div className='d-flex justify-content-between alert alert-primary'>
+                <div className='d-flex justify-content-between'>
                     <div>
                         <b>ITEMS</b>
                         <p>all Items</p>
@@ -84,6 +84,7 @@ function Items() {
                 {msgsuccess}
             </div>
            ):null}
+          <div style={{overflowX:'auto'}}> 
                 <table className='table shadow'>
                     <thead className="bg-primary text-white">
                         <tr>
@@ -112,6 +113,7 @@ function Items() {
                         }
                     </tbody>
                 </table>
+                </div>
             </div>
         </div>
     );

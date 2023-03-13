@@ -18,13 +18,18 @@ const NewInvoice = () => {
   const [msg,setMsg] = useState('')
   const [allItems, setAllItems] = useState([])
   const [msgsuccess,setMsgsuccess] = useState('')
+  const user = localStorage.getItem('storeTokendata')
   // const [inputmore,setInputmore] = useState([{item:'',quantity:'',salesPrice:''}])
 
   useEffect(() => {
    getItem()
   }, [])
   const getItem = () =>{
-    axios.get('https://inventory-bay.onrender.com/api/item/get')
+    axios.get('https://inventory-bay.onrender.com/api/item/get',{
+      headers:{
+        Authorization: `Bearer ${user}`
+      }
+    })
     .then((response)=>{
       setItemData(response.data.items)
     })
@@ -57,7 +62,7 @@ const NewInvoice = () => {
       const response = await axios.post('https://inventory-bay.onrender.com/api/invoice/create',data,{
         headers: {
           'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('storeTokendata')}`
+            'Authorization': `Bearer ${user}`
         }
       })
       console.log(response.data)
@@ -80,7 +85,7 @@ const NewInvoice = () => {
 
   return (
     <div className='container'>
-       <div className='d-flex justify-content-between alert alert-primary'>
+       <div className='d-flex justify-content-between'>
                     <div>
                         <b>Invoice</b>
                     </div>
@@ -95,16 +100,16 @@ const NewInvoice = () => {
           // onSubmit={SaveInvoice}
           >
         
-          <div className='alert alert-primary'>
+          <div className=''>
               <h6 className='text-center'>Add new Invoice in Stock</h6>
           </div>
           {!msg == ''?(
-            <div className='alert  alert-danger text-center'>
+            <div className='text-danger text-center'>
                 {msg}
             </div>
            ):null}
            {!msgsuccess == ''?(
-            <div className='alert  alert-success text-center'>
+            <div className='text-success text-center'>
                 {msgsuccess}
             </div>
            ):null}

@@ -46,6 +46,7 @@ function Report() {
                         <b>Report</b>
                     </div>
                 </div>
+                <div style={{overflowX:'auto'}}>
                 <MDBTable align='middle'>
                     <MDBTableHead>
                         <tr>
@@ -92,6 +93,7 @@ function Report() {
                          }
                     </MDBTableBody>
                     </MDBTable>
+                    </div>
             </div>
         </div>
         </div>

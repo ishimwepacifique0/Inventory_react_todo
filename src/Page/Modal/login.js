@@ -38,7 +38,7 @@ const Login = () =>{
                         </div>
                     ):(null)}
                 <div className='form-group'>
-                    <label className='col-sm-2 control-label my-1' >Username</label>
+                    <label className='col-sm-2 control-label my-1' >Email</label>
                     <div className='col-sm-10'>
                         <input
                          type="username" 

@@ -32,12 +32,13 @@ function Customer(props) {
     return (
         <div>
             <div className='container'>
-                <div className='d-flex justify-content-between alert alert-primary'>
+                <div className=' '>
                     <div>
                         <b>Customer</b>
                         <p>All customers are recorded in database</p>
                     </div>
                 </div>
+                <div style={{overflowX:'auto'}}>
                 <table className='table shadow'>
                     <thead className="bg-primary text-white">
                         <tr>
@@ -68,6 +69,7 @@ function Customer(props) {
                             }
                     </tbody>
                 </table>
+                </div>
             </div>
         </div>
     );
