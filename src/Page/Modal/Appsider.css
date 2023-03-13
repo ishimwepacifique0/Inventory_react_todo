@@ -18,7 +18,7 @@ body {
     /* Height of navbar */
     box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%);
     width: 240px;
-    /* z-index: 600; */
+    z-index:0
   }
 
   
@@ -44,5 +44,6 @@ body {
     padding-top: 0.5rem;
     overflow-x: hidden;
     overflow-y: auto;
+    z-index: 0;
     /* Scrollable contents if viewport is shorter than content. */
   }
